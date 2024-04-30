@@ -15,6 +15,7 @@ pipeline{
       steps{
         sh "docker build -t simpledjangoapp-docker-master_web:${env.BUILD_NUMBER} SimpleDjangoApp-Docker-master/."                    
         withCredentials([string(credentialsId: 'my-ecr', variable: 'LOGIN')]) {   
+                 sh "pip3 install --upgrade awscli"
                  sh "$LOGIN"
                  sh "docker tag simpledjangoapp-docker-master_web:${env.BUILD_NUMBER} public_ecr:latest public.ecr.aws/o6x2k0k2/public_ecr:${env.BUILD_NUMBER}"
                  sh "docker push  public_ecr:latest public.ecr.aws/o6x2k0k2/public_ecr:${env.BUILD_NUMBER}" 
