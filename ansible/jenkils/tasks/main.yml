@@ -1,0 +1,77 @@
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    update_cache: false
+
+- name: 
+  get_url:
+    url: "https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key"  
+    dest: "/usr/share/keyrings/jenkins-keyring.asc"  
+    mode: "0644"  # Optional: specify the file permissions    
+
+- name: Import Jenkins GPG key
+  apt_key:
+    url: "https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key"
+    state: present
+
+- name: Upgrade all packages
+  apt:
+    name: "*"
+    state: latest
+    update_cache: yes 
+
+# - name: Add Amazon Corretto repository for Ubuntu
+#   apt_repository:
+#     repo: "deb [arch=amd64] https://corretto.aws/deb/ubuntu jammy main"
+#     state: present
+#     update_cache: yes
+  
+# - name: Import Amazon Corretto GPG key
+#   apt_key:
+#     url: "https://corretto.aws/corretto.key"
+#     state: present
+  
+
+- name: Install openjdk-17-jdk
+  apt:
+    name: openjdk-17-jdk
+    state: present
+    
+- name: Add Jenkins repository
+  apt_repository:
+    repo: "deb https://pkg.jenkins.io/debian-stable binary/"
+    state: present
+
+# - name: Import Jenkins GPG key
+#   apt_key:
+#     url: "https://pkg.jenkins.io/debian-stable/jenkins.io.key"
+#     state: present
+    
+- name: update cache
+  apt:
+    update_cache: yes
+
+
+- name: Install Jenkins
+  apt:
+    name: jenkins  
+    state: present  
+    update_cache: yes                             
+
+- name: Enable Jenkins service
+  service:
+    name: "jenkins"  
+    enabled: yes 
+
+
+- name: Check Jenkins service status
+  systemd:
+    name: jenkins
+    enabled: yes
+  register: jenkins_service_status
+
+- name: Print Jenkins service status
+  debug:
+    msg: "Jenkins service is {{ jenkins_service_status.status }}"
+
+

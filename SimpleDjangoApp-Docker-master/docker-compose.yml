@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: mysqldb
+    restart: always
+    environment:
+      MYSQL_DATABASE: eltonoby
+      MYSQL_USER: eltonoby
+      MYSQL_PASSWORD: eltonoby
+      MYSQL_ROOT_PASSWORD: eltonoby
+    ports:
+      - '3306:3306'
+  web:
+    build: .
+    container_name: djangoapp
+    restart: always
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - '8000:8000'
+    environment:
+      DB_HOST: db
+      DB_NAME: eltonoby
+      DB_PASSWORD: eltonoby
+      DB_PORT: '3306'
+    depends_on:
+      - db

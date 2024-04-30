@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-app
+  labels:
+    app: django
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+      - name: django
+        image: simpledjangoapp-docker-master_web
+        ports:
+        - containerPort: 8000
+        env:
+          - name: DB_HOST
+            value: db-service
+          - name: DB_NAME
+            value: "eltonoby"
+          - name: DB_PASSWORD
+            value: "eltonoby"
+          - name: DB_PORT
+            value: "3306"
