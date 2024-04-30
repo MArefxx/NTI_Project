@@ -26,7 +26,7 @@ pipeline{
 
     stage('update k8s files'){
       steps{
-        sh "sed -i 's|image:.*|image: public.ecr.aws/k9h2m6v6/radioshash-repo:${env.BUILD_NUMBER}|g\' k8s/django/deployment.yml"
+        sh "sed -i 's|image:.*|image: public.ecr.aws/o6x2k0k2/public_ecr:${env.BUILD_NUMBER}|g\' k8s/django/deployment.yml"
       }
     }
 
