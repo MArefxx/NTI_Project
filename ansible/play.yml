@@ -1,11 +1,9 @@
 - name: update cache
   hosts: localhost
   pre_tasks:
-
-
- - name:  Update apt cache
-   ansible.builtin.apt:
-     update_cache: yes
+    - name:  Update apt cache
+      ansible.builtin.apt:
+        update_cache: yes
 
 
 - name: my play for roles 
@@ -19,4 +17,4 @@
 
     - role: Docker
 
-    - role: Kubectl
+    - role: kubectl
