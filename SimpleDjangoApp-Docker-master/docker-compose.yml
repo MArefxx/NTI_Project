@@ -6,10 +6,10 @@ services:
     container_name: mysqldb
     restart: always
     environment:
-      MYSQL_DATABASE: eltonoby
-      MYSQL_USER: eltonoby
-      MYSQL_PASSWORD: eltonoby
-      MYSQL_ROOT_PASSWORD: eltonoby
+      MYSQL_DATABASE: NTI
+      MYSQL_USER: NTI
+      MYSQL_PASSWORD: NTI
+      MYSQL_ROOT_PASSWORD: NTI
     ports:
       - '3306:3306'
   web:
